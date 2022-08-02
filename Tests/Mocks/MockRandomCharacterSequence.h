@@ -1,6 +1,7 @@
 #pragma once
 
 #include <trompeloeil.hpp>
+#include <catch2/trompeloeil.hpp>
 
 #include <Boggle/IRandomCharacterSequence.h>
 

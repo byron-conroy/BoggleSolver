@@ -8,9 +8,8 @@ class IRandomCharacterSequence;
 namespace Boggle
 {
     constexpr static auto RegulationGridSize = 4;
-    using Grid = std::array<std::array<char, RegulationGridSize>, RegulationGridSize>;
-
-    Grid GenerateGrid(IRandomCharacterSequence& randomCharacterSequence);
+    using Grid = std::vector<std::vector<char>>;
+    Grid GenerateGrid(IRandomCharacterSequence& randomCharacterSequence, size_t GridSize = RegulationGridSize);
 
     struct GridPosition
     {

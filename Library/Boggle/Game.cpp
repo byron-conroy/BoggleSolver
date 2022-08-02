@@ -3,29 +3,39 @@
 #include <Dictionary/IDictionary.h>
 #include <Boggle/Grid.h>
 
+#include <iostream>
+
 namespace
 {
+    struct PathData
+    {
+        std::unordered_set<Boggle::GridPosition> visitedPositions{};
+        std::string pathSoFar{};
+    };
+
     void RecursiveSearchForWords(
         const Boggle::Game& game,
         std::unordered_set<std::string>& discoveredWords,
-        std::unordered_set<Boggle::GridPosition>& visitedPositions,
-        std::string pathSoFar, // @TODO We might want to reserve space in this string somehow
-        Boggle::GridPosition nextGridPosition
+        Boggle::GridPosition nextGridPosition,
+        PathData pathData = {}
     )
     {
+        // First thing we do is say we have now visited this grid position
+        pathData.visitedPositions.insert(nextGridPosition);
+
         auto currentLetter = game.grid[nextGridPosition.x][nextGridPosition.y];
 
         // We append the current letter to the word
-        pathSoFar += currentLetter;
+        pathData.pathSoFar += currentLetter;
 
         // If the current letter is a Q we also append a U
         if(currentLetter == 'q')
         {
-            pathSoFar += 'u';
+            pathData.pathSoFar += 'u';
         }
 
         // Check if the word so far is in our dictionary
-        auto result = game.dictionary.IsValid(pathSoFar);
+        auto result = game.dictionary.IsValid(pathData.pathSoFar);
         switch (result)
         {
             // If not even a valid prefix we exit immediately
@@ -34,7 +44,7 @@ namespace
 
             // If valid we add it to the dictionary
             case IDictionary::LookupResult::ValidWord:
-                discoveredWords.insert(pathSoFar);
+                discoveredWords.insert(pathData.pathSoFar);
                 break;
             // We generally want to keep searching
             default:
@@ -43,25 +53,21 @@ namespace
 
         // For each neighbour
         auto neighbours = nextGridPosition.GetNeighbours(game.grid.size());
-
         for(auto neighbour : neighbours)
         {
             // Check if we have visited it
-            auto iterator = visitedPositions.find(neighbour);
-            if(iterator != visitedPositions.end())
+            auto iterator = pathData.visitedPositions.find(neighbour);
+            if(iterator != pathData.visitedPositions.end())
             {
                 // Skip it if we have
                 continue;
             }
 
-            // Otherwise we add it to the set of visited positions and recursively search it
-            visitedPositions.insert(neighbour);
             RecursiveSearchForWords(
                 game,
                 discoveredWords,
-                visitedPositions,
-                pathSoFar,
-                neighbour
+                neighbour,
+                pathData
             );
         }
     }
@@ -71,18 +77,14 @@ std::unordered_set<std::string> Boggle::DiscoverWords(const Boggle::Game& game)
 {
     std::unordered_set<std::string> discoveredWords;
 
-    for(int x = 0; x < RegulationGridSize; ++x)
+    for(int x = 0; x < game.grid.size(); ++x)
     {
-        for(int y = 0; y < RegulationGridSize; ++y)
+        for(int y = 0; y < game.grid.size(); ++y)
         {
             GridPosition startPosition{x, y};
-            std::unordered_set<Boggle::GridPosition> visitedPositions{startPosition};
-
             RecursiveSearchForWords(
                 game,
                 discoveredWords,
-                visitedPositions,
-                {},
                 startPosition
             );
         }

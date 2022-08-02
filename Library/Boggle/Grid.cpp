@@ -2,9 +2,9 @@
 
 #include <Boggle/IRandomCharacterSequence.h>
 
-Boggle::Grid Boggle::GenerateGrid(IRandomCharacterSequence& randomCharacterSequence)
+Boggle::Grid Boggle::GenerateGrid(IRandomCharacterSequence& randomCharacterSequence, size_t GridSize)
 {
-    Grid returnValue{};
+    Grid returnValue(GridSize, std::vector<char>(GridSize, 'a'));
 
     for(int x = 0; x < RegulationGridSize; ++x)
     {
