@@ -96,3 +96,27 @@ std::unordered_set<std::string> Boggle::DiscoverWords(const Boggle::Game& game)
 
     return discoveredWords;
 }
+
+int Boggle::GetWordScore(const std::string& word)
+{
+    // Small words don't count
+    if(word.size() < 3)
+    {
+        return 0;
+    }
+
+    switch (word.size())
+    {
+        case 3:
+        case 4:
+            return 1;
+        case 5:
+            return 2;
+        case 6:
+            return 3;
+        case 7:
+            return 5;
+        default:
+            return 11;
+    }
+}

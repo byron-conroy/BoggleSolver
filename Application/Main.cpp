@@ -1,31 +1,19 @@
+#include "BoggleApplication.h"
+
+#include <exception>
 #include <iostream>
 
-#include "Dictionary/SimpleDictionary.h"
-#include <Boggle/Game.h>
-#include <Boggle/UniformCharacterSequence.h>
-
-int main()
+int main(int argc, char** argv)
 {
-    SimpleDictionary dictionary{};
+    BoggleApplication application;
 
-    dictionary.LoadWords(
-        {
-            "first",
-            "second",
-            "third",
-        }
-    );
-
-    UniformCharacterSequence uniformCharacterSequence(22);
-
-    auto grid = Boggle::GenerateGrid(uniformCharacterSequence);
-
-    for(const auto& row : grid)
-    {
-        for(const auto& cell : row)
-        {
-            std::cout << cell << ' ';
-        }
-        std::cout << std::endl;
+    try{
+        application.Run(argc, argv);
     }
+    catch (std::exception& exception)
+    {
+        std::cerr << "Error running Boggle Application - " << exception.what() << std::endl;
+    }
+
+    return 0;
 }

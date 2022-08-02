@@ -3,6 +3,7 @@ set(TARGET_NAME boggle_lib)
 add_library(
     ${TARGET_NAME}
     STATIC
+    Dictionary/Helpers.cpp
     Dictionary/SimpleDictionary.cpp
     Dictionary/PredictiveDictionary.cpp
     Boggle/Game.cpp

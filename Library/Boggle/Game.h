@@ -27,6 +27,11 @@ namespace Boggle
      * Search for words given a Boggle Grid, Dictionary & time up deadline
      */
     std::unordered_set<std::string> DiscoverWords(const Game& game);
+
+    /*
+     * Returns the score of a word which was found
+     */
+    int GetWordScore(const std::string& word);
 }
 
 
