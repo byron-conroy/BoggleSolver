@@ -4,6 +4,7 @@ add_executable (
     ${TARGET_NAME}
     TestsMain.cpp
     UnitTests/SimpleDictionaryT.cpp
+    UnitTests/PredictiveDictionaryT.cpp
     UnitTests/GridT.cpp
     UnitTests/BoggleT.cpp
 )

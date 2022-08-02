@@ -1,6 +1,6 @@
 #include <catch2/catch.hpp>
 
-#include "Dictionary/SimpleDictionary.h"
+#include <Dictionary/SimpleDictionary.h>
 
 TEST_CASE("SimpleDictionary")
 {

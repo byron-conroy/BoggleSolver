@@ -4,6 +4,7 @@ add_library(
     ${TARGET_NAME}
     STATIC
     Dictionary/SimpleDictionary.cpp
+    Dictionary/PredictiveDictionary.cpp
     Boggle/Game.cpp
     Boggle/Grid.cpp
     Boggle/UniformCharacterSequence.cpp
