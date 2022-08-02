@@ -1,10 +1,12 @@
 #include <iostream>
 
-#include <Dictionary.h>
+#include "Dictionary/SimpleDictionary.h"
+#include <Boggle/Game.h>
+#include <Boggle/UniformCharacterSequence.h>
 
 int main()
 {
-    Dictionary dictionary;
+    SimpleDictionary dictionary{};
 
     dictionary.LoadWords(
         {
@@ -14,5 +16,16 @@ int main()
         }
     );
 
-    return 0;
+    UniformCharacterSequence uniformCharacterSequence(22);
+
+    auto grid = Boggle::GenerateGrid(uniformCharacterSequence);
+
+    for(const auto& row : grid)
+    {
+        for(const auto& cell : row)
+        {
+            std::cout << cell << ' ';
+        }
+        std::cout << std::endl;
+    }
 }

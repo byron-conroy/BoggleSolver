@@ -1,6 +1,7 @@
 [requires]
 catch2/2.13.9
 boost/1.79.0
+trompeloeil/42
 
 [generators]
 cmake_find_package

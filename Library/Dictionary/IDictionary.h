@@ -2,13 +2,13 @@
 
 #include <string>
 
-#include <Base.h>
+#include "Base.h"
 
 class IDictionary : public Base
 {
 public:
     enum class LookupResult{
-        Invalid,
+        InvalidPrefix,
         ValidPrefix,
         ValidWord
     };

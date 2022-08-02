@@ -15,6 +15,7 @@ if(BUILD_TESTING)
 
     # Find the testing libraries
     find_package(Catch2 REQUIRED)
+    find_package(trompeloeil REQUIRED)
 
     # Provides the 'catch_discover_tests' CMake command
     include(Catch)
