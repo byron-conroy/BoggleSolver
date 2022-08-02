@@ -3,8 +3,6 @@
 #include <Dictionary/IDictionary.h>
 #include <Boggle/Grid.h>
 
-#include <iostream>
-
 namespace
 {
     struct PathData
@@ -20,6 +18,12 @@ namespace
         PathData pathData = {}
     )
     {
+        // If we have run out of time we immediately exit
+        if(std::chrono::steady_clock::now() > game.deadline)
+        {
+            return;
+        }
+
         // First thing we do is say we have now visited this grid position
         pathData.visitedPositions.insert(nextGridPosition);
 
